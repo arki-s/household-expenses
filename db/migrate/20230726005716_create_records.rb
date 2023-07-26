@@ -4,8 +4,8 @@ class CreateRecords < ActiveRecord::Migration[7.0]
       t.datetime :date
       t.integer :amounts
       t.text :comment
-      t.references :budgets, null: false, foreign_key: true
-      t.references :categories, null: false, foreign_key: true
+      t.references :budget, null: false, foreign_key: true
+      t.references :category, null: false, foreign_key: true
 
 
       t.timestamps
