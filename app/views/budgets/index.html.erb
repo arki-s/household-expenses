@@ -1,0 +1,7 @@
+<% @budgets.each do |budget| %>
+  <%= budget.name %>
+  <%= budget.amounts %>
+  <%= budget.start_time.strftime("%F") %>
+  <%= budget.end_time.strftime("%F") %>
+<% end %>
+<%= link_to "Add new budget", new_budget_path %>
