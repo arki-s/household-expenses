@@ -1,5 +1,7 @@
 class RecordsController < ApplicationController
   def index
+    @user = current_user
+    @records = current_user.records
 
   end
 
