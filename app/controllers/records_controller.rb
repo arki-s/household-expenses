@@ -6,6 +6,8 @@ class RecordsController < ApplicationController
   end
 
   def show
+    @user = current_user
+    @record = Record.find(params[:id])
 
   end
 
