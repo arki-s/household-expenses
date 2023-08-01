@@ -20,6 +20,9 @@ class BudgetsController < ApplicationController
   end
 
   def show
+    @user = current_user
+    @budget = Budget.find(params[:id])
+
 
   end
 
