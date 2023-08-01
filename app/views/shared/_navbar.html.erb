@@ -13,8 +13,8 @@
             <%= current_user.email %>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <%= link_to "Budget", "#", class: "dropdown-item" %>
-            <%= link_to "Record", "#", class: "dropdown-item" %>
+            <%= link_to "Budget", budgets_path, class: "dropdown-item" %>
+            <%= link_to "Record", records_path, class: "dropdown-item" %>
             <%= link_to "Calendar", "#", class: "dropdown-item" %>
             <%= link_to "Budget list", "#", class: "dropdown-item" %>
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
