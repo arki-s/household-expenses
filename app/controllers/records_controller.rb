@@ -31,6 +31,11 @@ class RecordsController < ApplicationController
 
   end
 
+  def calendar
+    @user = current_user
+
+  end
+
   private
 
   def record_params

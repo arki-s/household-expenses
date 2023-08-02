@@ -1,6 +1,6 @@
 <% @records.each do |record| %>
   <%= record.category.name %>
-  <%= record.date.strftime("%F") %>
+  <%= record.start_time.strftime("%F") %>
   <%= record.amounts %>
   <%= record.comment %>
 <% end %>
