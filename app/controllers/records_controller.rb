@@ -12,7 +12,7 @@ class RecordsController < ApplicationController
   end
 
   def new
-
+    @record = Record.new
   end
 
   def create
@@ -34,7 +34,7 @@ class RecordsController < ApplicationController
   private
 
   def record_params
-
+    params.require(:record).permit(:date, :amounts)
   end
 
 end

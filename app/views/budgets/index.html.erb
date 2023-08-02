@@ -3,6 +3,7 @@
   <%= budget.amounts %>
   <%= budget.start_time.strftime("%F") %>
   <%= budget.end_time.strftime("%F") %>
+  <%= link_to "Add new record", new_budget_record_path(budget) %>
 <% end %>
 <div class="add-link">
   <%= link_to "", new_budget_path, class:"fa-solid fa-circle-plus",style:"font-size:60px" %>
