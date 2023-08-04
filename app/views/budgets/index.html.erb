@@ -1,6 +1,12 @@
 <% @budgets.each do |budget| %>
+  <% total = budget.amounts %>
+  <% used = 0 %>
+  <% budget.records.each { |record| used += record.amounts } %>
+  <% leftover = total - used %>
   <%= budget.name %>
-  <%= budget.amounts %>
+  <%= (((leftover / total.to_f) * 100).round) %>%
+  total<%= budget.amounts %>
+  leftover<%= leftover %>
   <%= budget.start_time.strftime("%F") %>
   <%= budget.end_time.strftime("%F") %>
   <%= link_to "Add new record", new_budget_record_path(budget) %>
