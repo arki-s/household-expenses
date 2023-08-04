@@ -3,7 +3,7 @@
   <% used = 0 %>
   <% budget.records.each { |record| used += record.amounts } %>
   <% leftover = total - used %>
-  <%= budget.name %>
+  <%= link_to budget.name, budget_path(budget) %>
   <%= (((leftover / total.to_f) * 100).round) %>%
   total<%= budget.amounts %>
   leftover<%= leftover %>

@@ -1,0 +1,16 @@
+<% if @user == @budget.user %>
+  <%= @budget.name %>
+  <%= @budget.amounts %>
+  <%= @budget.start_time.strftime("%F") %>
+  <%= @budget.end_time.strftime("%F") %>
+  records
+  <% @budget.records.each do |record| %>
+    <%= record.category.name %>
+    <%= record.start_time.strftime("%F") %>
+    <%= record.amounts %>
+    <%= record.comment %>
+  <% end %>
+<% else %>
+  You don't have access.
+<% end %>
+<%= link_to "Back", budgets_path %>
