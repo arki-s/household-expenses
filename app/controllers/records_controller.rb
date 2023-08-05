@@ -16,6 +16,15 @@ class RecordsController < ApplicationController
   end
 
   def create
+    @user = current_user
+    @record = Record.new(record_params)
+    @record.user = @user
+    if @record.save
+      redirect_to budgets_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+
 
   end
 
@@ -33,7 +42,8 @@ class RecordsController < ApplicationController
 
   def calendar
     @user = current_user
-
+    start_date = params.fetch(:start_time, Date.today).to_date
+    @meetings = Meeting.where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
   end
 
   private
@@ -41,5 +51,4 @@ class RecordsController < ApplicationController
   def record_params
     params.require(:record).permit(:date, :amounts)
   end
-
 end
