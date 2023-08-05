@@ -10,7 +10,8 @@
     <%= record.amounts %>
     <%= record.comment %>
   <% end %>
-  <%= pie_chart Record.group(:category).count %>
+  <%# <%= pie_chart Record.group(:category).count %>
+  <%= pie_chart @user.records.group(:category).count %>
 <% else %>
   You don't have access.
 <% end %>
