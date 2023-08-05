@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_004820) do
   end
 
   create_table "meetings", force: :cascade do |t|
-    t.string "name"
+    t.integer "amounts"
     t.datetime "start_time"
     t.datetime "end_time"
     t.bigint "user_id", null: false

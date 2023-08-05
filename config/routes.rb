@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root to: "budgets#index"
-  resources :budgets, only: [:show, :new, :create] do
+  resources :budgets, only: [:index, :show, :new, :create] do
     resources :records, only: [:new, :create, :edit, :update]
   end
-  resources :budgets, only: [:index, :edit, :update, :destroy]
+  resources :budgets, only: [:edit, :update, :destroy]
   resources :records, only: [:index, :destroy]
   get 'calendar', to: 'records#calendar', as: 'calendar'
 
