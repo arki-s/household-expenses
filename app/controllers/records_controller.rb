@@ -24,7 +24,7 @@ class RecordsController < ApplicationController
       if @user.meetings.find_by(start_time: @record.start_time)
         meeting = @user.meetings.find_by(start_time: @record.start_time)
         meeting.amounts += @record.amounts
-        meeting.update
+        meeting.save
       else
         @meeting = Meeting.new(amounts: @record.amounts, start_time: @record.start_time, end_time: @record.start_time)
         @meeting.user = @user
@@ -42,19 +42,19 @@ class RecordsController < ApplicationController
   end
 
   def update
-    @record = record.find(params[:id])
+    @record = Record.find(params[:id])
     meeting = @user.meetings.find_by(start_time: @record.start_time)
     meeting.amounts -= @record.amounts
     if meeting.amounts.zero?
       meeting.destroy
     else
-      meeting.update
+      meeting.save
     end
     if @record.update(record_params)
       if @user.meetings.find_by(start_time: @record.start_time)
         meeting = @user.meetings.find_by(start_time: @record.start_time)
         meeting.amounts += @record.amounts
-        meeting.update
+        meeting.save
       else
         @meeting = Meeting.new(amounts: @record.amounts, start_time: @record.start_time, end_time: @record.start_time)
         @meeting.user = @user
@@ -67,12 +67,16 @@ class RecordsController < ApplicationController
   end
 
   def destroy
-    @record = record.find(params[:id])
-    date = Date.today
-    if @user.meetings.find_by(start_time: date)
-      meeting = @user.meetings.find_by(start_time: date)
+    @record = Record.find(params[:id])
+    @user = current_user
+    if @user.meetings.find_by(start_time: @record.start_time)
+      meeting = @user.meetings.find_by(start_time: @record.start_time)
       meeting.amounts -= @record.amounts
-      meeting.update
+      if meeting.amounts.zero?
+        meeting.destroy
+      else
+        meeting.save
+      end
     end
     @record.destroy
     redirect_to records_path, status: :see_other
