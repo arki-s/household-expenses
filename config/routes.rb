@@ -6,10 +6,10 @@ Rails.application.routes.draw do
   # root "articles#index"
   root to: "budgets#index"
   resources :budgets, only: [:index, :show, :new, :create] do
-    resources :records, only: [:new, :create, :edit, :update]
+    resources :records, only: [:new, :create]
   end
   resources :budgets, only: [:edit, :update, :destroy]
-  resources :records, only: [:index, :destroy]
+  resources :records, only: [:index, :edit, :update, :destroy]
   get 'calendar', to: 'records#calendar', as: 'calendar'
 
 end

@@ -2,13 +2,11 @@ class RecordsController < ApplicationController
   def index
     @user = current_user
     @records = current_user.records
-
   end
 
   def show
     @user = current_user
     @record = Record.find(params[:id])
-
   end
 
   def new
@@ -22,14 +20,13 @@ class RecordsController < ApplicationController
     @record = Record.new(record_params)
     @record.user = @user
     @record.budget = @budget
-    date = Date.today
     if @record.save
-      if @user.meetings.find_by(start_time: date)
-        meeting = @user.meetings.find_by(start_time: date)
+      if @user.meetings.find_by(start_time: @record.start_time)
+        meeting = @user.meetings.find_by(start_time: @record.start_time)
         meeting.amounts += @record.amounts
         meeting.update
       else
-        @meeting = Meeting.new(amounts: @record.amounts, start_time: date, end_time: date)
+        @meeting = Meeting.new(amounts: @record.amounts, start_time: @record.start_time, end_time: @record.start_time)
         @meeting.user = @user
         @meeting.save
       end
@@ -37,20 +34,48 @@ class RecordsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-
-
   end
 
   def edit
-
+    @record = Record.find(params[:id])
+    @user = current_user
   end
 
   def update
-
+    @record = record.find(params[:id])
+    meeting = @user.meetings.find_by(start_time: @record.start_time)
+    meeting.amounts -= @record.amounts
+    if meeting.amounts.zero?
+      meeting.destroy
+    else
+      meeting.update
+    end
+    if @record.update(record_params)
+      if @user.meetings.find_by(start_time: @record.start_time)
+        meeting = @user.meetings.find_by(start_time: @record.start_time)
+        meeting.amounts += @record.amounts
+        meeting.update
+      else
+        @meeting = Meeting.new(amounts: @record.amounts, start_time: @record.start_time, end_time: @record.start_time)
+        @meeting.user = @user
+        @meeting.save
+      end
+      redirect_to records_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
-
+    @record = record.find(params[:id])
+    date = Date.today
+    if @user.meetings.find_by(start_time: date)
+      meeting = @user.meetings.find_by(start_time: date)
+      meeting.amounts -= @record.amounts
+      meeting.update
+    end
+    @record.destroy
+    redirect_to records_path, status: :see_other
   end
 
   def calendar

@@ -3,4 +3,6 @@
   <%= record.start_time.strftime("%F") %>
   <%= record.amounts %>
   <%= record.comment %>
+  <%= link_to "", edit_record_path(record), class:"fa-solid fa-pen p-2",style:"font-size:20px" %>
+  <%= link_to "", record_path(record), class:"fa-solid fa-trash-can", style:"font-size:20px", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
 <% end %>
