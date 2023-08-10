@@ -1,0 +1,9 @@
+<h1>Edit record</h1>
+<%= simple_form_for @record, data: { controller: 'flatpickr' } do |f| %>
+  <%= f.input :start_time, label: "Date",as: :string, input_html: { data: { flatpickr_target: "startTime" } } %>
+  <%= f.input :amounts %>
+  <%= f.association :category, prompt: 'categories'%>
+  <%= f.input :comment %>
+  <%= f.submit "Add", class:"btn btn-primary" %>
+<% end %>
+<%= link_to "Back", records_path %>

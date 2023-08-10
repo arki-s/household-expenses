@@ -42,6 +42,7 @@ class RecordsController < ApplicationController
   end
 
   def update
+    @user = current_user
     @record = Record.find(params[:id])
     meeting = @user.meetings.find_by(start_time: @record.start_time)
     meeting.amounts -= @record.amounts
