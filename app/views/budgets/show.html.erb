@@ -3,6 +3,10 @@
   <%= @budget.amounts %>
   <%= @budget.start_time.strftime("%F") %>
   <%= @budget.end_time.strftime("%F") %>
+  <div class="toggle_button">
+    <input id="toggle" class="toggle_input" type='checkbox' />
+    <label for="toggle" class="toggle_label"/>
+  </div>
   records
   <% @budget.records.each do |record| %>
     <%= record.category.name %>
