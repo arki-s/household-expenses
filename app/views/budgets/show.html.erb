@@ -7,7 +7,7 @@
   <% @budget.records.each do |record| %>
     <%= record.category.name %>
     <%= record.start_time.strftime("%F") %>
-    <%= record.amounts %>
+    ¥<%= record.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %>
     <%= record.comment %>
   <% end %>
   <%# <%= pie_chart Record.group(:category).count %>
