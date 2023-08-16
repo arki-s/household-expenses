@@ -1,6 +1,6 @@
 <% if @user == @budget.user %>
   <%= @budget.name %>
-  <%= @budget.amounts %>
+  ¥<%= @budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %>
   <%= @budget.start_time.strftime("%F") %>
   <%= @budget.end_time.strftime("%F") %>
   <div class="toggle_button">

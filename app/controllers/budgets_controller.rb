@@ -9,7 +9,7 @@ class BudgetsController < ApplicationController
   end
 
   def create
-    @budget = Budget.new
+    @budget = Budget.new(budget_params)
     @user = current_user
     @budget.user = @user
     if @budget.save
@@ -41,7 +41,7 @@ class BudgetsController < ApplicationController
   private
 
   def budget_params
-
+    params.require(:budget).permit(:name, :start_time, :amounts, :end_time)
   end
 
 end
