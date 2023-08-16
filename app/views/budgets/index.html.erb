@@ -1,16 +1,20 @@
-<% @budgets.each do |budget| %>
-  <% total = budget.amounts %>
-  <% used = 0 %>
-  <% budget.records.each { |record| used += record.amounts } %>
-  <% leftover = total - used %>
-  <%= link_to budget.name, budget_path(budget) %>
-  <%= (((leftover / total.to_f) * 100).round) %>%
-  total ¥<%= budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %>
-  leftover ¥<%= leftover.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %>
-  <%= budget.start_time.strftime("%F") %>
-  <%= budget.end_time.strftime("%F") %>
-  <%= link_to "Add new record", new_budget_record_path(budget) %>
-<% end %>
-<div class="add-link">
-  <%= link_to "", new_budget_path, class:"fa-solid fa-circle-plus",style:"font-size:60px" %>
+<div class="container-share">
+  <% @budgets.each do |budget| %>
+    <div class="container-budget">
+      <% total = budget.amounts %>
+      <% used = 0 %>
+      <% budget.records.each { |record| used += record.amounts } %>
+      <% leftover = total - used %>
+      <%= link_to budget.name, budget_path(budget) %>
+      <%= (((leftover / total.to_f) * 100).round) %>%
+      total ¥<%= budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %>
+      leftover ¥<%= leftover.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %>
+      <%= budget.start_time.strftime("%F") %>
+      <%= budget.end_time.strftime("%F") %>
+      <%= link_to "Add new record", new_budget_record_path(budget) %>
+    </div>
+  <% end %>
+  <div class="add-link">
+    <%= link_to "", new_budget_path, class:"fa-solid fa-circle-plus",style:"font-size:60px" %>
+  </div>
 </div>
