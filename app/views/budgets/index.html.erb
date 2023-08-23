@@ -5,13 +5,12 @@
       <% used = 0 %>
       <% budget.records.each { |record| used += record.amounts } %>
       <% leftover = total - used %>
-      <%= link_to budget.name, budget_path(budget) %>
-      <%= (((leftover / total.to_f) * 100).round) %>%
-      total ¥<%= budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %>
-      leftover ¥<%= leftover.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %>
-      <%= budget.start_time.strftime("%F") %>
-      <%= budget.end_time.strftime("%F") %>
-      <%= link_to "Add new record", new_budget_record_path(budget) %>
+      <h1><%= link_to budget.name, budget_path(budget) %></h1>
+      <p><%= budget.start_time.strftime("%F") %> ~ <%= budget.end_time.strftime("%F") %></p>
+      <h2><%= (((leftover / total.to_f) * 100).round) %>%</h2>
+      <h2>total ¥<%= budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></h2>
+      <h2>leftover ¥<%= leftover.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></h2>
+      <%= link_to "Add new record", new_budget_record_path(budget), class:"btn btn-primary" %>
     </div>
   <% end %>
   <div class="add-link">
