@@ -22,16 +22,21 @@ class BudgetsController < ApplicationController
   def show
     @user = current_user
     @budget = Budget.find(params[:id])
-
-
   end
 
   def edit
-
+    @budget = Budget.find(params[:id])
+    @user = User.find(@budget.user_id)
   end
 
   def update
-
+    @budget = Budget.find(params[:id])
+    @user = User.find(@budget.user_id)
+    if @budget.update(budget_params)
+      redirect_to budget_path(@budget)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -41,7 +46,7 @@ class BudgetsController < ApplicationController
   private
 
   def budget_params
-    params.require(:budget).permit(:name, :start_time, :amounts, :end_time)
+    params.require(:budget).permit(:name, :start_time, :amounts, :end_time, :completed)
   end
 
 end

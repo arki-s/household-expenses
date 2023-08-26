@@ -2,11 +2,11 @@
   <h1><%= @budget.name %></h1>
   <p> <%= @budget.start_time.strftime("%F") %> ~ <%= @budget.end_time.strftime("%F") %></p>
   <h2>¥<%= @budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></h2>
-  <p>Completed</p>
-  <div class="toggle_button">
+  <%= render "budgets/complete", budget: @budget, budget: Budget.find(@budget.id) %>
+  <%# <div class="toggle_button">
     <input id="toggle" class="toggle_input" type='checkbox' />
     <label for="toggle" class="toggle_label"/>
-  </div>
+  </div> %>
   records
   <% @budget.records.each do |record| %>
     <%= record.category.name %>
