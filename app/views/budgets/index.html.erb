@@ -1,16 +1,18 @@
 <div class="container-share">
   <% @budgets.each do |budget| %>
-    <div class="container-budget">
-      <% total = budget.amounts %>
-      <% used = 0 %>
-      <% budget.records.each { |record| used += record.amounts } %>
-      <% leftover = total - used %>
-      <h1><%= link_to budget.name, budget_path(budget) %></h1>
-      <p><%= budget.start_time.strftime("%F") %> ~ <%= budget.end_time.strftime("%F") %></p>
-      <h2><%= (((leftover / total.to_f) * 100).round) %>%</h2>
-      <h2>¥<%= leftover.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %> / ¥<%= budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></h2>
-      <%= link_to "Add new record", new_budget_record_path(budget), class:"btn btn-primary" %>
-    </div>
+    <% if budget.completed == false %>
+      <div class="container-budget">
+        <% total = budget.amounts %>
+        <% used = 0 %>
+        <% budget.records.each { |record| used += record.amounts } %>
+        <% leftover = total - used %>
+        <h1><%= link_to budget.name, budget_path(budget) %></h1>
+        <p><%= budget.start_time.strftime("%F") %> ~ <%= budget.end_time.strftime("%F") %></p>
+        <h2><%= (((leftover / total.to_f) * 100).round) %>%</h2>
+        <h2>¥<%= leftover.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %> / ¥<%= budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></h2>
+        <%= link_to "Add new record", new_budget_record_path(budget), class:"btn btn-primary" %>
+      </div>
+    <% end %>
   <% end %>
   <div class="add-link">
     <%= link_to "", new_budget_path, class:"fa-solid fa-circle-plus",style:"font-size:60px" %>
