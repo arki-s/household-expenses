@@ -1,22 +1,23 @@
-<% if @user == @budget.user %>
-  <h1><%= @budget.name %></h1>
-  <p> <%= @budget.start_time.strftime("%F") %> ~ <%= @budget.end_time.strftime("%F") %></p>
-  <h2>¥<%= @budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></h2>
-  <%= render "budgets/complete", budget: @budget, budget: Budget.find(@budget.id) %>
-  <%# <div class="toggle_button">
+<div class="container-budget">
+  <% if @user == @budget.user %>
+    <h1><%= @budget.name %></h1>
+    <p> <%= @budget.start_time.strftime("%F") %> ~ <%= @budget.end_time.strftime("%F") %></p>
+    <h2>¥<%= @budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></h2>
+    <%= render "budgets/complete", budget: @budget, budget: Budget.find(@budget.id) %>
+    <%# <div class="toggle_button">
     <input id="toggle" class="toggle_input" type='checkbox' />
     <label for="toggle" class="toggle_label"/>
   </div> %>
-  records
-  <% @budget.records.each do |record| %>
-    <%= record.category.name %>
-    <%= record.start_time.strftime("%F") %>
-    ¥<%= record.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %>
-    <%= record.comment %>
+    <h2>Records</h2>
+    <div class="container-records">
+      <% @budget.records.each do |record| %>
+        <p><%= record.category.name %> <%= record.start_time.strftime("%F") %> ¥<%= record.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %> <%= record.comment %></p>
+      <% end %>
+    </div>
+    <%# <%= pie_chart Record.group(:category).count %>
+    <%= pie_chart @user.records.group(:category).count %>
+  <% else %>
+    You don't have access.
   <% end %>
-  <%# <%= pie_chart Record.group(:category).count %>
-  <%= pie_chart @user.records.group(:category).count %>
-<% else %>
-  You don't have access.
-<% end %>
-<%= link_to "Back", budgets_path %>
+  <%= link_to "Back", budgets_path %>
+</div>
