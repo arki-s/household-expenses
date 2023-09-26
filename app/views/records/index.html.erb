@@ -1,9 +1,6 @@
-<% @records.each do |record| %>
-  <%= record.budget.name %>
-  <%= record.category.name %>
-  <%= record.start_time.strftime("%F") %>
-  ¥<%= record.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %>
-  <%= record.comment %>
-  <%= link_to "", edit_record_path(record), class:"fa-solid fa-pen p-2",style:"font-size:20px" %>
-  <%= link_to "", record_path(record), class:"fa-solid fa-trash-can", style:"font-size:20px", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-<% end %>
+<div class="container-budget">
+  <h1>Records</h1>
+  <% @records.each do |record| %>
+    <p><%= record.budget.name %> <%= record.category.name %> <%= record.start_time.strftime("%F") %> ¥<%= record.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %> <%= record.comment %> <%= link_to "", edit_record_path(record), class:"fa-solid fa-pen p-2",style:"font-size:20px" %> <%= link_to "", record_path(record), class:"fa-solid fa-trash-can", style:"font-size:20px", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></p>
+  <% end %>
+</div>
