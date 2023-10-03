@@ -1,0 +1,10 @@
+<div class="container-budget">
+  <h1>Budget List</h1>
+  <% @budgets.each do |budget| %>
+    <% total = budget.amounts %>
+    <% used = 0 %>
+    <% budget.records.each { |record| used += record.amounts } %>
+    <% leftover = total - used %>
+    <p><%= link_to budget.name, budget_path(budget) %> <%= budget.start_time.strftime("%F") %> ~ <%= budget.end_time.strftime("%F") %> <%= (((leftover / total.to_f) * 100).round) %>%  ¥<%= leftover.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %> / ¥<%= budget.amounts.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></p>
+  <% end %>
+</div>

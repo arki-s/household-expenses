@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   resources :budgets, only: [:edit, :update, :destroy]
   resources :records, only: [:index, :edit, :update, :destroy]
   get 'calendar', to: 'records#calendar', as: 'calendar'
-
+  get 'list', to: 'budgets#list', as: 'list'
 end

@@ -4,6 +4,11 @@ class BudgetsController < ApplicationController
     @budgets = current_user.budgets
   end
 
+  def list
+    @user = current_user
+    @budgets = current_user.budgets
+  end
+
   def new
     @budget = Budget.new
   end
